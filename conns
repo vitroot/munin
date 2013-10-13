@@ -1,0 +1,30 @@
+#!/bin/bash
+
+if [ "$1" = "config" ]; then
+    echo 'graph_title TCP & UDP connections on FUN'
+    echo 'graph_vlabel conns'
+    echo 'graph_noscale true'
+    echo 'graph_category Connect'
+    echo 'tcp_conns.label tcp_conns'
+    echo 'graph_args --base 1000'
+    echo 'tcp_conns.min 0'
+    echo 'graph_info TCP connections';
+    echo 'tcp_conns.info conns amount'
+    echo 'tcp_conns.draw AREA'
+    echo 'tcp_conns.colour 0000aa'
+
+    echo 'udp_conns.label udp_conns'
+    echo 'graph_args --base 1000'
+    echo 'udp_conns.min 0'
+    echo 'graph_info UDP connections';
+    echo 'udp_conns.info conns amount'
+    echo 'udp_conns.draw AREA'
+    echo 'udp_conns.colour 00aa00'
+
+    exit 0
+fi
+
+echo -n "tcp_conns.value "
+echo `awk 'END {print NR}' /proc/net/tcp`
+echo -n "udp_conns.value "
+echo `awk 'END {print NR}' /proc/net/udp`

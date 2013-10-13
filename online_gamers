@@ -1,0 +1,18 @@
+#!/bin/bash
+
+if [ "$1" = "config" ]; then
+    echo 'graph_title Gamers online FUN'
+    echo 'graph_vlabel users'
+    echo 'graph_noscale true'
+    echo 'graph_category Gamers'
+    echo 'users.label users'
+    echo 'graph_args --base 1000'
+    echo 'users.min 0'
+    echo 'graph_info gamers online';
+    echo 'users.info Users amount'
+    echo 'users.draw AREA'
+    exit 0
+fi
+
+echo -n "users.value "
+echo `mysql -u my_user -p1nONmjY38I4oKtNy3rPulwH4x characters_fun --skip-column-names --batch -e "select count(*) from characters where online=1;"`
